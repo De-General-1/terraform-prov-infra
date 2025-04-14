@@ -1,12 +1,12 @@
 
 ```markdown
-# 🛠️ Terraform AWS Infrastructure Project
+# Terraform AWS Infrastructure Project
 
 This project provisions a modular, production-ready AWS infrastructure using **Terraform**, with **CI/CD automation via Jenkins**, and follows best practices including backend state management, modular architecture, and scalable infrastructure provisioning.
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This infrastructure-as-code project includes:
 
@@ -19,7 +19,7 @@ This infrastructure-as-code project includes:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 terraform_lab_1/
@@ -40,9 +40,9 @@ terraform_lab_1/
 
 ---
 
-## 🧩 Modules
+## Modules
 
-### ✅ VPC Module
+### VPC Module
 
 Provisions a custom VPC with two public subnets.
 
@@ -50,15 +50,15 @@ Provisions a custom VPC with two public subnets.
 - `availability_zones`
 - `public_subnets`
 
-### ✅ Security Group Module
+### Security Group Module
 
 Creates security groups to allow SSH, HTTP, and EKS-related communication.
 
-### ✅ EC2 Module
+### EC2 Module
 
 Launches an EC2 instance in the public subnet and installs Docker + NGINX container.
 
-### ✅ EKS Module
+### EKS Module
 
 Provisions:
 
@@ -68,16 +68,16 @@ Provisions:
 
 ---
 
-## 🌐 State Backend (S3)
+## State Backend (S3)
 
 State is stored in an S3 bucket with locking enabled via `use_lockfile`.
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "terraform-backend-bucket-niico"
+    bucket         = "*****BUCKET-Name*****"
     key            = "terraform/terraform.tfstate"
-    region         = "eu-west-1"
+    region         = "*****REGION*****"
     encrypt        = true
     use_lockfile   = true
   }
@@ -86,7 +86,7 @@ terraform {
 
 ---
 
-## 🤖 CI/CD Pipeline (Jenkins)
+## CI/CD Pipeline (Jenkins)
 
 Jenkins automates the following:
 
@@ -144,11 +144,6 @@ pipeline {
     }
 
     stage('Terraform Apply') {
-      when {
-        expression {
-          return env.APPLY == 'true'
-        }
-      }
       steps {
         sh 'terraform apply -auto-approve -var-file="terraform.tfvars"'
       }
@@ -168,7 +163,7 @@ pipeline {
 
 ---
 
-## 📦 Variables (terraform.tfvars)
+## Variables (terraform.tfvars)
 
 ```hcl
 vpc_cidr = "10.0.0.0/16"
@@ -188,12 +183,12 @@ availability_zones = [
 
 ---
 
-## 🚀 Usage
+## Usage
 
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/De-General-1/terraform_lab_1.git
+git clone https://github.com/De-General-1/terraform-prov-infra.git
 cd terraform_lab_1
 ```
 
@@ -219,31 +214,31 @@ terraform apply -auto-approve -var-file="terraform.tfvars"
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - Sensitive data (keys, credentials) should not be stored in this repo.
 - Consider using **AWS Secrets Manager** or **SSM Parameter Store** for secrets.
 
 ---
 
-## ✅ Status
+## Status
 
-✅ VPC Provisioned  
-✅ EC2 + Docker + NGINX running  
-✅ Security Groups set up  
-✅ EKS Cluster deployed  
-✅ S3 Backend with Locking enabled  
-✅ Jenkins CI/CD pipeline live
+VPC Provisioned  
+EC2 + Docker + NGINX running  
+Security Groups set up  
+EKS Cluster deployed  
+S3 Backend with Locking enabled  
+Jenkins CI/CD pipeline live
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **@De-General-1**
 
 ---
 
-## 📄 License
+## License
 
 MIT – use, modify, and contribute freely.
 
