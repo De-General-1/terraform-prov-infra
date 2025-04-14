@@ -1,5 +1,3 @@
-
-```markdown
 # Terraform AWS Infrastructure Project
 
 This project provisions a modular, production-ready AWS infrastructure using **Terraform**, with **CI/CD automation via Jenkins**, and follows best practices including backend state management, modular architecture, and scalable infrastructure provisioning.
